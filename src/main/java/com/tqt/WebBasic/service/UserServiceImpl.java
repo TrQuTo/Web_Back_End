@@ -3,10 +3,6 @@ package com.tqt.WebBasic.service;
 import com.tqt.WebBasic.model.LoginRequestDTO;
 import com.tqt.WebBasic.model.User;
 import com.tqt.WebBasic.repository.UserRepository;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +15,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.mindrot.jbcrypt.BCrypt;
-
-import javax.crypto.SecretKey;
 
 @Service
 public class UserServiceImpl implements IUserService{
