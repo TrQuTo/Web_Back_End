@@ -23,13 +23,13 @@ public class User {
     private String birthday;
     @Column(name = "registrationdate")
     private String registrationdate;
-    private int role_id;
+    private Integer role_id;
 
-    public int getRole_id() {
+    public Integer getRole_id() {
         return role_id;
     }
 
-    public void setRole_id(int role_id) {
+    public void setRole_id(Integer role_id) {
         this.role_id = role_id;
     }
 
@@ -45,7 +45,7 @@ public class User {
 
 
 
-    public User(int id, String username, String password, String phone, String mail, String birthday, String registrationdate, int role_id) {
+    public User(int id, String username, String password, String phone, String mail, String birthday, String registrationdate, Integer role_id) {
         this.id = id;
         this.username = username;
         this.password = password;

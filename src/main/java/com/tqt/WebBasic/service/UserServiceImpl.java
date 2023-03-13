@@ -3,12 +3,11 @@ package com.tqt.WebBasic.service;
 import com.tqt.WebBasic.model.LoginRequestDTO;
 import com.tqt.WebBasic.model.User;
 import com.tqt.WebBasic.repository.UserRepository;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.persistence.EntityExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -18,20 +17,21 @@ import org.mindrot.jbcrypt.BCrypt;
 
 @Service
 public class UserServiceImpl implements IUserService{
-    //This method is EndCodeMD5 for Password
 
     @Autowired
     UserRepository userRepository;
     @Override
-    public User addUser(User user) {
+    public User addUser(User user) throws SQLIntegrityConstraintViolationException {
         User userName = userRepository.findByUsername(user.getUsername());
         User mail = userRepository.findByMail(user.getMail());
         if (userName != null) {
-            System.out.println("Username exist");
-            return null;
+            throw new EntityExistsException("Username exist");
         } else if (mail != null) {
-            System.out.println("Mail exist");
-            return null;
+            throw new EntityExistsException("Mail exist");
+        } else if (user.getRole_id() == null ) {
+            throw new SQLIntegrityConstraintViolationException("Role is null");
+        } else if (user.getRole_id() < 1 || user.getRole_id() > 2) {
+            throw new SQLIntegrityConstraintViolationException("Role is not found");
         } else {
                 Date date = new Date();
                 System.out.println("Original Date: " + date);
@@ -67,7 +67,7 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     public Optional<User> getOneUser(int id) {
-        return Optional.ofNullable(userRepository.findById(id).orElseThrow(() -> new NullPointerException("User "+id+" not found")));
+        return userRepository.findById(id);
     }
 
     @Override
