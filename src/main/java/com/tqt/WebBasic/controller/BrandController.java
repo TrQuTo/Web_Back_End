@@ -15,26 +15,27 @@ public class BrandController {
     IBrandService iBrandService;
 
     @GetMapping("")
-    public List<Brand> showALlBrand(){
+    public List<Brand> showALlBrand() {
         return iBrandService.getAllBrand();
     }
+
     @GetMapping("/{id}")
-    public Optional<Brand> showOneBrand(@PathVariable("id") int id){
+    public Optional<Brand> showOneBrand(@PathVariable("id") int id) {
         return iBrandService.getOneBrand(id);
     }
 
     @PostMapping("/add")
-    public Brand addBrand(@RequestBody Brand brand){
-        return  iBrandService.addBrand(brand);
+    public Brand addBrand(@RequestBody Brand brand) {
+        return iBrandService.addBrand(brand);
     }
 
     @PutMapping("/update")
-    public Brand updateBrand(@RequestParam("id") int id,@RequestBody Brand brand){
+    public Brand updateBrand(@RequestParam("id") int id, @RequestBody Brand brand) {
         return iBrandService.updateBrand(id, brand);
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean deleteBrand(@PathVariable("id") int id){
-        return iBrandService.deleleBrand(id);
+    public boolean deleteBrand(@PathVariable("id") int id) {
+        return iBrandService.deleteBrand(id);
     }
 }

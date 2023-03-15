@@ -1,7 +1,13 @@
 package com.tqt.WebBasic.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 
+@Getter
+@Setter
+@Generated
+@NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "brand")
 public class Brand {
@@ -9,36 +15,4 @@ public class Brand {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nameBrand;
-
-    public Brand(int id, String nameBrand) {
-        this.id = id;
-        this.nameBrand = nameBrand;
-    }
-
-    @Override
-    public String toString() {
-        return "Brand{" +
-                "id=" + id +
-                ", nameBrand='" + nameBrand + '\'' +
-                '}';
-    }
-
-    public Brand() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNameBrand() {
-        return nameBrand;
-    }
-
-    public void setNameBrand(String nameBrand) {
-        this.nameBrand = nameBrand;
-    }
 }

@@ -10,14 +10,19 @@ import java.util.Optional;
 public interface IUserService {
     //Add
     public User addUser(User user) throws SQLIntegrityConstraintViolationException;
+
     //Update
     public User updateUser(int id, User user);
+
     //Delete
     public boolean deleteUser(int id);
+
     //GetOneId
     public Optional<User> getOneUser(int id);
+
     //GetAll
     public List<User> getAllUser();
+
     //Login
     public User login(LoginRequestDTO loginRequestDTO);
 }

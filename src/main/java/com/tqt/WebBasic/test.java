@@ -1,4 +1,5 @@
 package com.tqt.WebBasic;
+
 import com.nulabinc.zxcvbn.Strength;
 import com.nulabinc.zxcvbn.Zxcvbn;
 

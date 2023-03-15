@@ -9,9 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BrandServiceImpl implements IBrandService{
+public class BrandServiceImpl implements IBrandService {
     @Autowired
     BrandRepository brandRepository;
+
     @Override
     public List<Brand> getAllBrand() {
         return brandRepository.findAll();
@@ -24,7 +25,7 @@ public class BrandServiceImpl implements IBrandService{
 
     @Override
     public Brand addBrand(Brand brand) {
-        if(brand != null){
+        if (brand != null) {
             return brandRepository.save(brand);
         }
         return null;
@@ -33,7 +34,7 @@ public class BrandServiceImpl implements IBrandService{
     @Override
     public Brand updateBrand(int id, Brand brand) {
         Brand brand1 = brandRepository.getReferenceById(id);
-        if(brand1 != null){
+        if (brand1 != null) {
             brand1.setNameBrand(brand.getNameBrand());
             return brandRepository.save(brand1);
         }
@@ -41,9 +42,9 @@ public class BrandServiceImpl implements IBrandService{
     }
 
     @Override
-    public boolean deleleBrand(int id) {
+    public boolean deleteBrand(int id) {
         Brand brand = brandRepository.getReferenceById(id);
-        if(brand != null){
+        if (brand != null) {
             brandRepository.delete(brand);
             return true;
         }

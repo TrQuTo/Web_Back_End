@@ -1,10 +1,13 @@
 package com.tqt.WebBasic.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 
-import javax.management.relation.Role;
-import java.util.Set;
-
+@Getter
+@Setter
+@Generated
+@NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "user")
 public class User {
@@ -25,86 +28,5 @@ public class User {
     private String registrationdate;
     private Integer role_id;
 
-    public Integer getRole_id() {
-        return role_id;
-    }
-
-    public void setRole_id(Integer role_id) {
-        this.role_id = role_id;
-    }
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
-
-
-
-
-
-    public User(int id, String username, String password, String phone, String mail, String birthday, String registrationdate, Integer role_id) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.phone = phone;
-        this.mail = mail;
-        this.birthday = birthday;
-        this.registrationdate = registrationdate;
-        this.role_id = role_id;
-    }
-
-    public User() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-
-    public String getRegistrationdate() {
-        return registrationdate;
-    }
-
-    public void setRegistrationdate(String registrationdate) {
-        this.registrationdate = registrationdate;
-    }
+    private String image_url;
 }
