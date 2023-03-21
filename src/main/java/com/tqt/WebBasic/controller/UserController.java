@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "users")
+@RequestMapping(path = "api/v1/auth")
 public class UserController {
     @Autowired
     IUserService iUserService;
@@ -40,7 +40,7 @@ public class UserController {
     @PostMapping("/add")
     public User addUser(@ModelAttribute User user, @RequestParam("files") MultipartFile[] files) throws SQLIntegrityConstraintViolationException {
         //Call method upload image
-        user.setImage_url(iGeneralService.addImage(files,"users"));
+        user.setImageUrl(iGeneralService.addImage(files,"users"));
         user.setRegistrationDate((iGeneralService.dateNow("yyyy-MM-dd hh:mm:ss")));
         return iUserService.addUser(user);
     }

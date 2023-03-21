@@ -16,12 +16,16 @@ import org.mindrot.jbcrypt.BCrypt;
 @Service
 public class UserServiceImpl implements IUserService {
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @Override
     public User addUser(User user) throws SQLIntegrityConstraintViolationException {
-        User userName = userRepository.findByEmail(user.getEmail());
-        if (userName != null) {
+        Optional<User> userEmail = userRepository.findByEmail(user.getEmail());
+        if (userEmail != null) {
             throw new EntityExistsException("Mail exist");
         } else {
             //BCrypt for Password
@@ -40,7 +44,7 @@ public class UserServiceImpl implements IUserService {
             userUpdate.setEmail(user.getEmail());
             userUpdate.setBirthday(user.getBirthday());
             userUpdate.setRegistrationDate(user.getRegistrationDate());
-            userUpdate.setImage_url(user.getImage_url());
+            userUpdate.setImageUrl(user.getImageUrl());
             return userRepository.save(userUpdate);
         }
         return null;
@@ -65,16 +69,16 @@ public class UserServiceImpl implements IUserService {
     public User login(LoginRequestDTO loginRequestDTO) {
         String email = loginRequestDTO.getEmail();
         String password = loginRequestDTO.getPassword();
-        User user = userRepository.findByEmail(email);
+        Optional<User> user = userRepository.findByEmail(email);
         boolean passwordMatches = false;
         //User exist or not exist
         if (user != null) {
             //Check password "BCrypt"
-            passwordMatches = BCrypt.checkpw(password, user.getPassword());
+            passwordMatches = BCrypt.checkpw(password, user.get().getPassword());
         }
         if (passwordMatches) {
 
-            return user;
+            return null;
         } else {
             return null;
         }
