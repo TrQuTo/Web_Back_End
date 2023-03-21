@@ -20,33 +20,27 @@ public class UserServiceImpl implements IUserService {
     UserRepository userRepository;
     @Override
     public User addUser(User user) throws SQLIntegrityConstraintViolationException {
-        User userName = userRepository.findByUsername(user.getUsername());
-        User mail = userRepository.findByMail(user.getMail());
+        User userName = userRepository.findByEmail(user.getEmail());
         if (userName != null) {
-            throw new EntityExistsException("Username exist");
-        } else if (mail != null) {
             throw new EntityExistsException("Mail exist");
-        } else if (user.getRole_id() == null) {
-            throw new SQLIntegrityConstraintViolationException("Role is null");
-        } else if (user.getRole_id() < 1 || user.getRole_id() > 2) {
-            throw new SQLIntegrityConstraintViolationException("Role is not found");
         } else {
             //BCrypt for Password
             user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)));
             return userRepository.save(user);
         }
     }
-
     @Override
     public User updateUser(int id, User user) {
         if (user != null) {
             User userUpdate = userRepository.getReferenceById(id);
-            userUpdate.setUsername(user.getUsername());
+            userUpdate.setFirstname(user.getFirstname());
+            userUpdate.setLastname(user.getLastname());
             userUpdate.setPassword(user.getPassword());
             userUpdate.setPhone(user.getPhone());
-            userUpdate.setMail(user.getMail());
+            userUpdate.setEmail(user.getEmail());
             userUpdate.setBirthday(user.getBirthday());
-            userUpdate.setRegistrationdate(user.getRegistrationdate());
+            userUpdate.setRegistrationDate(user.getRegistrationDate());
+            userUpdate.setImage_url(user.getImage_url());
             return userRepository.save(userUpdate);
         }
         return null;
@@ -69,9 +63,9 @@ public class UserServiceImpl implements IUserService {
     }
 
     public User login(LoginRequestDTO loginRequestDTO) {
-        String username = loginRequestDTO.getUsername();
+        String email = loginRequestDTO.getEmail();
         String password = loginRequestDTO.getPassword();
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByEmail(email);
         boolean passwordMatches = false;
         //User exist or not exist
         if (user != null) {

@@ -2,12 +2,11 @@ package com.tqt.WebBasic.model;
 
 import lombok.*;
 
-@Getter
-@Setter
-@Generated
+@Data
+@Builder
 @NoArgsConstructor
-@ToString
+@AllArgsConstructor
 public class LoginRequestDTO {
-    private String username;
+    private String email;
     private String password;
 }

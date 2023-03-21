@@ -41,7 +41,7 @@ public class UserController {
     public User addUser(@ModelAttribute User user, @RequestParam("files") MultipartFile[] files) throws SQLIntegrityConstraintViolationException {
         //Call method upload image
         user.setImage_url(iGeneralService.addImage(files,"users"));
-        user.setRegistrationdate((iGeneralService.dateNow("yyyy-MM-dd hh:mm:ss")));
+        user.setRegistrationDate((iGeneralService.dateNow("yyyy-MM-dd hh:mm:ss")));
         return iUserService.addUser(user);
     }
 

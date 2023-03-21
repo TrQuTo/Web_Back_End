@@ -3,11 +3,10 @@ package com.tqt.WebBasic.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter
-@Setter
-@Generated
+@Data
+@Builder
 @NoArgsConstructor
-@ToString
+@AllArgsConstructor
 @Entity
 @Table(name = "brand")
 public class Brand {
