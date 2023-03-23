@@ -2,6 +2,7 @@ package com.tqt.WebBasic.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,6 +30,9 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
     private String imageUrl;
+    @OneToMany(mappedBy = "user")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    private List<Token> tokens;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -37,9 +41,12 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
-
+    @Override
+    public String getPassword() {
+        return password;
+    }
     @Override
     public boolean isAccountNonExpired() {
         return true;

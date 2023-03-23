@@ -23,17 +23,6 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User addUser(User user) throws SQLIntegrityConstraintViolationException {
-        Optional<User> userEmail = userRepository.findByEmail(user.getEmail());
-        if (userEmail != null) {
-            throw new EntityExistsException("Mail exist");
-        } else {
-            //BCrypt for Password
-            user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)));
-            return userRepository.save(user);
-        }
-    }
-    @Override
     public User updateUser(int id, User user) {
         if (user != null) {
             User userUpdate = userRepository.getReferenceById(id);
@@ -43,7 +32,6 @@ public class UserServiceImpl implements IUserService {
             userUpdate.setPhone(user.getPhone());
             userUpdate.setEmail(user.getEmail());
             userUpdate.setBirthday(user.getBirthday());
-            userUpdate.setRegistrationDate(user.getRegistrationDate());
             userUpdate.setImageUrl(user.getImageUrl());
             return userRepository.save(userUpdate);
         }

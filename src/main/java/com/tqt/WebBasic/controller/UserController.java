@@ -16,14 +16,14 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "api/v1/auth")
+@RequestMapping(path = "users")
 public class UserController {
     @Autowired
-    IUserService iUserService;
+    private IUserService iUserService;
     @Autowired
-    IGeneralService iGeneralService;
+    private IGeneralService iGeneralService;
 
-    @GetMapping("")
+    @GetMapping()
     public List<User> showAllUser() {
         return iUserService.getAllUser();
     }
@@ -35,14 +35,6 @@ public class UserController {
             throw new NullPointerException("User with " + id + " not found");
         }
         return user;
-    }
-
-    @PostMapping("/add")
-    public User addUser(@ModelAttribute User user, @RequestParam("files") MultipartFile[] files) throws SQLIntegrityConstraintViolationException {
-        //Call method upload image
-        user.setImageUrl(iGeneralService.addImage(files,"users"));
-        user.setRegistrationDate((iGeneralService.dateNow("yyyy-MM-dd hh:mm:ss")));
-        return iUserService.addUser(user);
     }
 
     @PutMapping("/update")
@@ -59,15 +51,5 @@ public class UserController {
             throw new EntityNotFoundException("User entity with id " + id + " exists");
         }
         return iUserService.deleteUser(id);
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequestDTO) {
-        User user = iUserService.login(loginRequestDTO);
-        if (user != null) {
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username or password does not exist");
-        }
     }
 }

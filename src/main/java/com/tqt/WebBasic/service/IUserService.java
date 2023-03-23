@@ -8,10 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IUserService {
-    //Add
-    public User addUser(User user) throws SQLIntegrityConstraintViolationException;
-
-    //Update
     public User updateUser(int id, User user);
 
     //Delete
